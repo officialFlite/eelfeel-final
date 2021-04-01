@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "3082054951",
+    "project_id": "eelfeel-62a79",
+    "storage_bucket": "eelfeel-62a79.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:3082054951:android:1dc3f533ff3776ec634d02",
+        "android_client_info": {
+          "package_name": "com.example.desain_eelfeel"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "3082054951-uafc1qlcnvv4tpm89doai8j6t9lo7e64.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDCpMC7Jp8vyAbUD0UGO0TEfcqopHVuTCU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "3082054951-uafc1qlcnvv4tpm89doai8j6t9lo7e64.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
