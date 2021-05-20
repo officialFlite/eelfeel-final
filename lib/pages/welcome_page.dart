@@ -1,6 +1,7 @@
-import 'package:desain_eelfeel/advice_giving.dart';
+import 'package:desain_eelfeel/widgets/advice_giving.dart';
 import 'package:flutter/material.dart';
-import 'package:desain_eelfeel/menu_dashboard.dart';
+import 'package:desain_eelfeel/pages/menu_dashboard.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 class WelcomePage extends StatefulWidget {
@@ -11,6 +12,7 @@ class WelcomePage extends StatefulWidget {
 class _WelcomePageState extends State<WelcomePage>
     with SingleTickerProviderStateMixin {
   TabController controller;
+  DateTime currentBackPressTime;
 
   @override
   void initState() {
@@ -24,7 +26,22 @@ class _WelcomePageState extends State<WelcomePage>
     super.dispose();
   }
 
-  DateTime currentBackPressTime;
+  Future<bool> onWillPop() {
+    DateTime now = DateTime.now();
+    if (currentBackPressTime == null ||
+        now.difference(currentBackPressTime) > Duration(seconds: 2)) {
+      currentBackPressTime = now;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Press back again to leave'),
+          duration: Duration(seconds: 1),
+        ),
+      );
+      return Future.value(false);
+    }
+    SystemChannels.platform.invokeMethod('SystemNavigator.pop');
+    return Future.value(true);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +52,7 @@ class _WelcomePageState extends State<WelcomePage>
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 8,
+        elevation: 4,
         centerTitle: true,
         title: Text(
           'Eel-Feel',
@@ -50,11 +67,14 @@ class _WelcomePageState extends State<WelcomePage>
         width: size.width * 0.6,
         child: MenuDashboard(),
       ),
-      body: TabBarView(
-        controller: controller,
-        children: [
-          AdviceGiving(),
-        ],
+      body: WillPopScope(
+        child: TabBarView(
+          controller: controller,
+          children: [
+            AdviceGiving(),
+          ],
+        ),
+        onWillPop: onWillPop,
       ),
     );
   }

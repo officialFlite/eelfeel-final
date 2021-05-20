@@ -1,28 +1,29 @@
-import 'package:desain_eelfeel/revised_button.dart';
+import 'package:desain_eelfeel/consultPages/confirm_consultation.dart';
+import 'package:desain_eelfeel/widgets/revised_button.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 
-import 'menu_dashboard.dart';
-
-class ComplainMenu extends StatefulWidget {
+class TroubleConsultation extends StatefulWidget {
   @override
-  _ComplainMenuState createState() => _ComplainMenuState();
+  _TroubleConsultationState createState() => _TroubleConsultationState();
 }
 
-class _ComplainMenuState extends State<ComplainMenu> {
+class _TroubleConsultationState extends State<TroubleConsultation> {
   final subjectController = TextEditingController();
+  final phoneController = TextEditingController();
   final complainController = TextEditingController();
 
   DatabaseReference uploadDataComplain = FirebaseDatabase.instance
       .reference()
       .child('dataSensor')
-      .child('dataComplain');
+      .child('dataComplain')
+      .child('konsultasiMasalah');
 
   void complainUploadData() {
     uploadDataComplain.push().set(
       {
-        'subjectDescription': subjectController.text,
-        'complainDescription': complainController.text,
+        'nomorPengeluh': phoneController.text,
+        'deskripsiMasalah': complainController.text,
       },
     );
   }
@@ -30,12 +31,15 @@ class _ComplainMenuState extends State<ComplainMenu> {
   @override
   void dispose() {
     subjectController.dispose();
+    phoneController.dispose();
     complainController.dispose();
+
     super.dispose();
   }
 
   clearTextInput() {
     subjectController.clear();
+    phoneController.clear();
     complainController.clear();
   }
 
@@ -51,18 +55,7 @@ class _ComplainMenuState extends State<ComplainMenu> {
         backgroundColor: Colors.white,
         elevation: 8,
         centerTitle: true,
-        title: Text(
-          'Feedback',
-          style: TextStyle(
-            color: Colors.black,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
         iconTheme: IconThemeData(color: Colors.black),
-      ),
-      drawer: Container(
-        width: size.width * 0.6,
-        child: MenuDashboard(),
       ),
       body: SafeArea(
         child: Container(
@@ -71,6 +64,33 @@ class _ComplainMenuState extends State<ComplainMenu> {
             children: [
               SizedBox(
                 height: 25,
+              ),
+              Container(
+                child: Row(
+                  children: [
+                    SizedBox(
+                      width: size.width * 0.06,
+                    ),
+                    Text(
+                      'Subject : ',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                      ),
+                    ),
+                    Text(
+                      'Konsultasi Masalah',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 18,
+                        color: Colors.grey[800],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(
+                height: 10,
               ),
               Container(
                 width: size.width * 0.88,
@@ -86,7 +106,7 @@ class _ComplainMenuState extends State<ComplainMenu> {
                   ],
                 ),
                 child: TextField(
-                  controller: subjectController,
+                  controller: phoneController,
                   decoration: InputDecoration(
                     errorText: _validate ? 'Value Can\'t Be Empty' : null,
                     enabledBorder: OutlineInputBorder(
@@ -101,7 +121,7 @@ class _ComplainMenuState extends State<ComplainMenu> {
                       ),
                       borderSide: BorderSide(color: Colors.grey),
                     ),
-                    hintText: "Subject",
+                    hintText: "Nomor yang dapat dihubungi",
                     hintStyle: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
@@ -142,7 +162,7 @@ class _ComplainMenuState extends State<ComplainMenu> {
                       ),
                       borderSide: BorderSide(color: Colors.grey),
                     ),
-                    hintText: "Description",
+                    hintText: "Deskripsikan Masalah Anda",
                     hintStyle: TextStyle(
                       color: Colors.grey,
                       fontSize: 15,
@@ -155,19 +175,18 @@ class _ComplainMenuState extends State<ComplainMenu> {
               ),
               Container(
                 child: RevisedButton(
+                  buttonSize: size.width * 0.88,
                   descButton: 'Submit',
                   color: Color.fromARGB(255, 55, 60, 77),
                   textColor: Colors.white,
                   press: () {
-                    setState(() {
-                      subjectController.text.isEmpty
-                          ? _validate = true
-                          : _validate = false;
-                      complainController.text.isEmpty
-                          ? _validate = true
-                          : _validate = false;
-                    });
                     complainUploadData();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ConfirmConsultation(),
+                      ),
+                    );
                     clearTextInput();
                   },
                 ),

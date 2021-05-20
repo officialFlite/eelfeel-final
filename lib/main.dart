@@ -1,10 +1,12 @@
-import 'package:desain_eelfeel/login_page.dart';
+import 'package:desain_eelfeel/pages/login_page.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(
       MaterialApp(
         debugShowCheckedModeBanner: false,
-        theme: ThemeData(fontFamily: 'HKGrotesk'),
+        theme: ThemeData(
+          fontFamily: 'HKGrotesk',
+        ),
         home: LoginPage(),
       ),
     );

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 
-class RevisedButton extends StatelessWidget {
+class OptionButton extends StatelessWidget {
   final String descButton;
   final Function press;
   final Color color, textColor;
-  const RevisedButton({
+  const OptionButton({
     Key key,
     this.descButton,
     this.press,
@@ -16,28 +16,22 @@ class RevisedButton extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Container(
+      width: size.width * 0.88,
+      padding: EdgeInsets.symmetric(vertical: 8),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black45,
-            offset: Offset(4, 4),
-            blurRadius: 4.0,
-          ),
-        ],
+        borderRadius: BorderRadius.circular(15),
       ),
-      margin: EdgeInsets.fromLTRB(10, 13, 10, 0),
       child: TextButton(
         style: TextButton.styleFrom(
+          elevation: 6,
           backgroundColor: color,
-          padding: EdgeInsets.symmetric(vertical: 20),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(15),
           ),
         ),
         onPressed: press,
         child: Container(
-          width: size.width * 0.88,
+          padding: EdgeInsets.symmetric(vertical: 10),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -45,7 +39,7 @@ class RevisedButton extends StatelessWidget {
                 descButton,
                 style: TextStyle(
                   color: textColor,
-                  fontWeight: FontWeight.bold,
+                  fontSize: 18,
                 ),
               ),
             ],

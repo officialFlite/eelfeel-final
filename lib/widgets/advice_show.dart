@@ -1,8 +1,9 @@
 import 'package:desain_eelfeel/dataSensor.dart';
+import 'package:desain_eelfeel/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_database/firebase_database.dart';
 
-import 'menu_dashboard.dart';
+import '../pages/menu_dashboard.dart';
 
 class AdviceShow extends StatefulWidget {
   final phStates,
@@ -38,6 +39,10 @@ class _AdviceShowState extends State<AdviceShow> {
       .reference()
       .child('dataSensor')
       .child('logSensor');
+  DatabaseReference isiAdvice = FirebaseDatabase.instance
+      .reference()
+      .child('dataSensor')
+      .child('dataAdvice');
   DatabaseReference uploadData = FirebaseDatabase.instance
       .reference()
       .child('dataSensor')
@@ -47,18 +52,15 @@ class _AdviceShowState extends State<AdviceShow> {
     if ('${_dataSensor.phStats}' == '1') {
       //do low
       phTitle = 'pH Rendah';
-      phAdvice =
-          "Untuk menaikan pH air dapat menggunakan saringan yang terdiri dari pecahan koral dan pecahan kulit kerang dicampur dengan potongan batu kapur pada saluran aerasi kolam";
+      phAdvice = '${_dataSensor.saranPhLow}';
     } else if ('${_dataSensor.phStats}' == '2') {
       //do high
       phTitle = 'pH Tinggi';
-      phAdvice =
-          "Untuk menurunkan pH air dapat menggunakan daun ketapang. Rendam daun ketapang yang telah direbus di dasar air selama beberapa hari.";
+      phAdvice = '${_dataSensor.saranPhHigh}';
     } else if ('${_dataSensor.phStats}' == '3') {
       //do opt
       phTitle = 'pH Optimal';
-      phAdvice =
-          "Kadar pH air pada kolam sudah optimal. Tetap pertahankan kondisi ini.";
+      phAdvice = '${_dataSensor.saranPhOptimal}';
     }
   }
 
@@ -66,17 +68,15 @@ class _AdviceShowState extends State<AdviceShow> {
     if ('${_dataSensor.tempStats}' == '1') {
       //do low
       tempTitle = 'Temperatur Rendah';
-      tempAdvice = "Gunakan water heater untuk menaikkan suhu air kolam.";
+      tempAdvice = '${_dataSensor.saranTempLow}';
     } else if ('${_dataSensor.tempStats}' == '2') {
       //do high
       tempTitle = 'Temperatur Tinggi';
-      tempAdvice =
-          "Untuk menurunkan temperatur dapat menggunakan water chiller.";
+      tempAdvice = '${_dataSensor.saranTempHigh}';
     } else if ('${_dataSensor.tempStats}' == '3') {
       //do opt
       tempTitle = 'Temperatur Optimal';
-      tempAdvice =
-          "Temperatur air pada kolam sudah optimal. Tetap pertahankan kondisi ini.";
+      tempAdvice = '${_dataSensor.saranTempHigh}';
     }
   }
 
@@ -84,18 +84,15 @@ class _AdviceShowState extends State<AdviceShow> {
     if ('${_dataSensor.heightStats}' == '1') {
       //do low
       heightTitle = 'Ketinggian Rendah';
-      heightAdvice =
-          "Ketinggian air pada kolam terlalu rendah, tambahkan air secukupnya";
+      heightAdvice = '${_dataSensor.saranHeightLow}';
     } else if ('${_dataSensor.heightStats}' == '2') {
       //do high
       heightTitle = 'Ketinggian Tinggi';
-      heightAdvice =
-          "Ketinggian air pada kolam terlalu tinggi, coba kurangi air dari kolam.";
+      heightAdvice = '${_dataSensor.saranHeightHigh}';
     } else if ('${_dataSensor.heightStats}' == '3') {
       //do opt
       heightTitle = 'Ketinggian Optimal';
-      heightAdvice =
-          "Ketinggian air pada kolam sudah optimal. Tetap pertahankan kondisi ini";
+      heightAdvice = '${_dataSensor.saranHeightOptimal}';
     }
   }
 
@@ -134,18 +131,29 @@ class _AdviceShowState extends State<AdviceShow> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        elevation: 8,
-        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 4,
         centerTitle: true,
-        title: const Text(
+        title: Text(
           'Lihat Saran',
           style: TextStyle(
             color: Colors.black,
+            fontWeight: FontWeight.bold,
           ),
+        ),
+        iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+          onPressed: () {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => WelcomePage()),
+                (Route<dynamic> route) => false);
+          },
         ),
       ),
       drawer: Container(
-        width: size.width * 0.6,
+        width: size.width * 0.5,
         child: MenuDashboard(),
       ),
       body: SafeArea(
@@ -156,10 +164,10 @@ class _AdviceShowState extends State<AdviceShow> {
               //top
               Container(
                 margin: EdgeInsets.fromLTRB(10, 13, 10, 0),
-                height: size.height * 0.37,
+                height: size.height * 0.55,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
+                  color: Colors.cyan[50],
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black26,
@@ -240,10 +248,10 @@ class _AdviceShowState extends State<AdviceShow> {
               //middle
               Container(
                 margin: EdgeInsets.fromLTRB(10, 13, 10, 0),
-                height: size.height * 0.37,
+                height: size.height * 0.55,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
+                  color: Colors.cyan[50],
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black26,
@@ -321,10 +329,10 @@ class _AdviceShowState extends State<AdviceShow> {
               //bottom
               Container(
                 margin: EdgeInsets.fromLTRB(10, 13, 10, 0),
-                height: size.height * 0.37,
+                height: size.height * 0.55,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(15),
-                  color: Colors.white,
+                  color: Colors.cyan[50],
                   boxShadow: [
                     BoxShadow(
                       color: Colors.black26,

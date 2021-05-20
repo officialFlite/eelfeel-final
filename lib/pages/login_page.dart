@@ -1,7 +1,7 @@
 import 'package:desain_eelfeel/animations/FadeAnimation.dart';
-import 'package:desain_eelfeel/registration_page.dart';
-import 'package:desain_eelfeel/revised_button.dart';
-import 'package:desain_eelfeel/welcome_page.dart';
+import 'package:desain_eelfeel/pages/registration_page.dart';
+import 'package:desain_eelfeel/widgets/revised_button.dart';
+import 'package:desain_eelfeel/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
@@ -12,6 +12,9 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   AnimationController _animationController;
+
+  final usernameCtrl = TextEditingController();
+  final passwordCtrl = TextEditingController();
 
   @override
   void initState() {
@@ -26,7 +29,15 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
   @override
   void dispose() {
     _animationController.dispose();
+    usernameCtrl.dispose();
+    passwordCtrl.dispose();
+
     super.dispose();
+  }
+
+  clearTextInput() {
+    usernameCtrl.clear();
+    passwordCtrl.clear();
   }
 
   @override
@@ -37,7 +48,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: Colors.white,
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
@@ -77,7 +87,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                             fontSize: 45,
-                            color: Colors.grey[850],
+                            color: Colors.black,
                           ),
                         ),
                       ),
@@ -89,27 +99,24 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                         width: size.width * 0.05,
                       ),
                       FadeAnimation(
-                        5,
+                        2,
                         Text(
                           'Selamat datang di aplikasi \nmonitoring kolam belut',
                           style: TextStyle(
                             fontSize: 20,
-                            color: Colors.grey[850],
+                            color: Colors.black87,
                           ),
                         ),
                       ),
                     ],
                   ),
-                  FadeAnimation(
-                    2,
-                    Image.asset(
-                      "assets/images/banner.png",
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ),
-                  ),
                 ],
               ),
+            ),
+            Image.asset(
+              "assets/images/banner.png",
+              width: double.infinity,
+              fit: BoxFit.cover,
             ),
             SizedBox(height: 15),
             Container(
@@ -119,6 +126,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                 color: Colors.white,
               ),
               child: TextField(
+                controller: usernameCtrl,
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
@@ -144,7 +152,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: size.height * 0.02),
             Container(
               width: size.width * 0.88,
               decoration: BoxDecoration(
@@ -152,6 +160,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                 color: Colors.white,
               ),
               child: TextField(
+                controller: passwordCtrl,
                 decoration: InputDecoration(
                   enabledBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.all(Radius.circular(10)),
@@ -176,21 +185,29 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
             ),
             Container(
               child: RevisedButton(
+                buttonSize: size.width * 0.88,
                 descButton: 'Login',
                 color: Color.fromARGB(255, 108, 110, 127),
                 textColor: Colors.white,
                 press: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => WelcomePage(),
-                    ),
-                  );
+                  if ((usernameCtrl.text == "admin") &&
+                      (passwordCtrl.text == "password")) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => WelcomePage(),
+                      ),
+                    );
+                    clearTextInput();
+                  } else {
+                    print("error");
+                  }
                 },
               ),
             ),
             Container(
               child: RevisedButton(
+                buttonSize: size.width * 0.88,
                 descButton: 'Create an Account',
                 color: Color.fromARGB(255, 45, 50, 67),
                 textColor: Colors.white,
@@ -204,9 +221,7 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                 },
               ),
             ),
-            SizedBox(
-              height: size.height * 0.05,
-            )
+            SizedBox(height: size.height * 0.05),
           ],
         ),
       ),

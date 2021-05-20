@@ -1,3 +1,4 @@
+import 'package:desain_eelfeel/pages/welcome_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -5,6 +6,29 @@ class AboutDev extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 4,
+        centerTitle: true,
+        title: Text(
+          'About Dev',
+          style: TextStyle(
+            color: Colors.black,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        iconTheme: IconThemeData(color: Colors.black),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back,
+          ),
+          onPressed: () {
+            Navigator.of(context).pushAndRemoveUntil(
+                MaterialPageRoute(builder: (context) => WelcomePage()),
+                (Route<dynamic> route) => false);
+          },
+        ),
+      ),
       body: SafeArea(
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,

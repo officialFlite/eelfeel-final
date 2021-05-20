@@ -1,16 +1,14 @@
-import 'package:desain_eelfeel/about_dev.dart';
-import 'package:desain_eelfeel/complain_menu.dart';
-import 'package:desain_eelfeel/login_page.dart';
-import 'package:desain_eelfeel/welcome_page.dart';
+import 'package:desain_eelfeel/pages/about_dev.dart';
+import 'package:desain_eelfeel/complainFeedback/complain_menu.dart';
+import 'package:desain_eelfeel/pages/calibrationPage/calibrate_login.dart';
+import 'package:desain_eelfeel/pages/login_page.dart';
+import 'package:desain_eelfeel/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
 
 class MenuDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    precacheImage(AssetImage("assets/images/bottom-banner.png"), context);
-    precacheImage(AssetImage("assets/images/logo-eel-feel.png"), context);
-
     return Drawer(
       child: Container(
         color: Colors.white,
@@ -77,6 +75,24 @@ class MenuDashboard extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                       builder: (context) => AboutDev(),
+                    ),
+                  ),
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.lock_clock),
+                title: Text(
+                  'Calibrate',
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                onTap: () => {
+                  Navigator.of(context).pop(),
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => CalibrateLogin(),
                     ),
                   ),
                 },

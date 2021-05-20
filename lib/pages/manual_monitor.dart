@@ -3,8 +3,6 @@ import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
-import 'menu_dashboard.dart';
-
 class ManualMonitor extends StatefulWidget {
   @override
   _ManualMonitorState createState() => _ManualMonitorState();
@@ -20,12 +18,11 @@ class _ManualMonitorState extends State<ManualMonitor> {
         .reference()
         .child('dataSensor')
         .child('logSensor_history')
-        .orderByChild('hari');
+        .orderByChild('tanggal');
   }
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
     FlutterStatusbarcolor.setStatusBarColor(Colors.white70);
     return Scaffold(
       appBar: AppBar(
@@ -34,26 +31,24 @@ class _ManualMonitorState extends State<ManualMonitor> {
         iconTheme: IconThemeData(color: Colors.black),
         centerTitle: true,
         title: const Text(
-          'Manual Monitoring',
+          'Riwayat Data',
           style: TextStyle(
             color: Colors.black,
           ),
         ),
       ),
-      drawer: Container(
-        width: size.width * 0.6,
-        child: MenuDashboard(),
-      ),
       resizeToAvoidBottomInset: false,
       body: Container(
         height: double.infinity,
-        child: FirebaseAnimatedList(
-          query: _ref,
-          itemBuilder: (BuildContext context, DataSnapshot snapshot,
-              Animation<double> animation, int index) {
-            Map dataSensor = snapshot.value;
-            return _manualMonitorSensor(dataSensor: dataSensor);
-          },
+        child: Container(
+          child: FirebaseAnimatedList(
+            query: _ref,
+            itemBuilder: (BuildContext context, DataSnapshot snapshot,
+                Animation<double> animation, int index) {
+              Map dataSensor = snapshot.value;
+              return _manualMonitorSensor(dataSensor: dataSensor);
+            },
+          ),
         ),
       ),
     );
@@ -65,12 +60,12 @@ class _ManualMonitorState extends State<ManualMonitor> {
       margin: EdgeInsets.fromLTRB(10, 10, 10, 0),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
+        color: Colors.cyan[50],
         boxShadow: [
           BoxShadow(
-            color: Colors.black26,
-            offset: Offset(3, 3),
-            blurRadius: 4.0,
+            color: Colors.black45,
+            offset: Offset(0, 3),
+            blurRadius: 5.0,
           ),
         ],
       ),

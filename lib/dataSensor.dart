@@ -1,23 +1,34 @@
 // ignore: camel_case_types
 class DataSensor {
-  final String hari,
-      jam,
-      tanggal,
-      keadaan,
+  final String keadaan,
       subjectDescription,
-      complainDescription;
+      complainDescription,
+
+      //advice
+      saranPhLow,
+      saranPhHigh,
+      saranPhOptimal,
+      saranHeightLow,
+      saranHeightHigh,
+      saranHeightOptimal,
+      saranTempLow,
+      saranTempHigh,
+      saranTempOptimal;
   final int ph,
       ketinggian,
       temperatur,
       phStats,
       tempStats,
       heightStats,
-      phLowAdvice;
+      phLowAdvice,
+      tempLowKalibrasi,
+      tempHighKalibrasi,
+      heightLowKalibrasi,
+      heightHighKalibrasi,
+      phLowKalibrasi,
+      phHighKalibrasi;
 
   DataSensor({
-    this.hari,
-    this.jam,
-    this.tanggal,
     this.ph,
     this.ketinggian,
     this.temperatur,
@@ -28,6 +39,23 @@ class DataSensor {
     this.phLowAdvice,
     this.subjectDescription,
     this.complainDescription,
+    this.tempLowKalibrasi,
+    this.tempHighKalibrasi,
+    this.heightLowKalibrasi,
+    this.heightHighKalibrasi,
+    this.phLowKalibrasi,
+    this.phHighKalibrasi,
+
+    //advice
+    this.saranPhLow,
+    this.saranPhHigh,
+    this.saranPhOptimal,
+    this.saranHeightLow,
+    this.saranHeightHigh,
+    this.saranHeightOptimal,
+    this.saranTempLow,
+    this.saranTempHigh,
+    this.saranTempOptimal,
   });
 
   factory DataSensor.fromJson(Map<dynamic, dynamic> json) {
@@ -40,9 +68,6 @@ class DataSensor {
     }
 
     return DataSensor(
-      hari: (json['hari']),
-      jam: (json['jam']),
-      tanggal: (json['tanggal']),
       ph: parser(json['ph']),
       ketinggian: parser(json['ketinggian']),
       temperatur: parser(json['temperatur']),
@@ -51,8 +76,25 @@ class DataSensor {
       tempStats: parser(json['tempStats']),
       heightStats: parser(json['heightStats']),
       phLowAdvice: parser(json['phLowAdvice']),
+      tempLowKalibrasi: parser(json['tempLowKalibrasi']),
+      tempHighKalibrasi: parser(json['tempHighKalibrasi']),
+      heightLowKalibrasi: parser(json['heightLowKalibrasi']),
+      heightHighKalibrasi: parser(json['heightHighKalibrasi']),
+      phLowKalibrasi: parser(json['phLowKalibrasi']),
+      phHighKalibrasi: parser(json['phHighKalibrasi']),
       subjectDescription: (json['subjectDescription']),
       complainDescription: (json['complainDescription']),
+
+      //advice
+      saranPhLow: (json['saranPhLow']),
+      saranPhHigh: (json['saranPhHigh']),
+      saranPhOptimal: (json['saranPhOptimal']),
+      saranHeightLow: (json['saranHeightLow']),
+      saranHeightHigh: (json['saranHeightHigh']),
+      saranHeightOptimal: (json['saranHeightOptimal']),
+      saranTempLow: (json['saranTempLow']),
+      saranTempHigh: (json['saranTempHigh']),
+      saranTempOptimal: (json['saranTempOptimal']),
     );
   }
 }
