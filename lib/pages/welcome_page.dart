@@ -2,7 +2,6 @@ import 'package:desain_eelfeel/widgets/advice_giving.dart';
 import 'package:flutter/material.dart';
 import 'package:desain_eelfeel/pages/menu_dashboard.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -45,7 +44,6 @@ class _WelcomePageState extends State<WelcomePage>
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.white70);
     Size size = MediaQuery.of(context).size;
 
     return Scaffold(

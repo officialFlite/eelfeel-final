@@ -3,7 +3,6 @@ import 'package:desain_eelfeel/pages/registration_page.dart';
 import 'package:desain_eelfeel/widgets/revised_button.dart';
 import 'package:desain_eelfeel/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -42,7 +41,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.white);
     Size size = MediaQuery.of(context).size;
     bool _obscureText = true;
 
@@ -112,11 +110,6 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                   ),
                 ],
               ),
-            ),
-            Image.asset(
-              "assets/images/banner.png",
-              width: double.infinity,
-              fit: BoxFit.cover,
             ),
             SizedBox(height: 15),
             Container(
@@ -200,6 +193,24 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
                     );
                     clearTextInput();
                   } else {
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                            title: Text("Error", textAlign: TextAlign.center),
+                            content: Text(
+                                "User ID dan Password yang anda masukkan salah",
+                                textAlign: TextAlign.center),
+                            actions: [
+                              TextButton(
+                                child: Text("Ok"),
+                                onPressed: () {
+                                  Navigator.of(context).pop();
+                                },
+                              )
+                            ],
+                          );
+                        });
                     print("error");
                   }
                 },
@@ -222,6 +233,12 @@ class _LoginPageState extends State<LoginPage> with TickerProviderStateMixin {
               ),
             ),
             SizedBox(height: size.height * 0.05),
+            Image.asset(
+              "assets/images/banner.png",
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
+            SizedBox(height: size.height * 0.08),
           ],
         ),
       ),

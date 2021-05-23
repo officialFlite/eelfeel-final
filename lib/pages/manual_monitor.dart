@@ -1,7 +1,6 @@
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_statusbarcolor/flutter_statusbarcolor.dart';
 
 class ManualMonitor extends StatefulWidget {
   @override
@@ -23,7 +22,6 @@ class _ManualMonitorState extends State<ManualMonitor> {
 
   @override
   Widget build(BuildContext context) {
-    FlutterStatusbarcolor.setStatusBarColor(Colors.white70);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
