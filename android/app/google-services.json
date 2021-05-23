@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "3082054951",
+    "firebase_url": "https://eelfeel-62a79-default-rtdb.firebaseio.com",
     "project_id": "eelfeel-62a79",
     "storage_bucket": "eelfeel-62a79.appspot.com"
   },
@@ -13,6 +14,14 @@
         }
       },
       "oauth_client": [
+        {
+          "client_id": "3082054951-vrr2l9ufptto1rdnbju6mkfi049u4iof.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.desain_eelfeel",
+            "certificate_hash": "8c719c8f19f0fc0c224ed80d33de93c7568da1c4"
+          }
+        },
         {
           "client_id": "3082054951-uafc1qlcnvv4tpm89doai8j6t9lo7e64.apps.googleusercontent.com",
           "client_type": 3
